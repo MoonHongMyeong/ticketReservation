@@ -23,6 +23,8 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	// MySql database
 	runtimeOnly 'com.mysql:mysql-connector-j'
+	// Lombok 종속성 추가
+	compileOnly 'org.projectlombok:lombok'
 }
 
 tasks.named('test') {
