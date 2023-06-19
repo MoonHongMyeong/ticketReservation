@@ -12,8 +12,8 @@
                AND company_name = #{companyName}
                AND business_reg_no = #{businessRegNo}
         </selectKey>
-        INSERT INTO SUPPLIER( email, password, name, company_name, business_reg_no, created_date, modified_date, role)
-        VALUES ( #{email}, #{password}, #{name}, #{companyName}, #{businessRegNo}, now(), now(), #{role});
+        INSERT INTO SUPPLIER( email, password, name, company_name, business_reg_no, phone, created_date, modified_date, role)
+        VALUES ( #{email}, #{password}, #{name}, #{companyName}, #{businessRegNo}, #{phone}, now(), now(), #{role});
     </insert>
 
     <select id="isDuplicateEmail" resultType="boolean">

@@ -7,6 +7,7 @@ CREATE TABLE `supplier`(
     	`name`	VARCHAR(20)	NOT NULL,
     	`company_name` VARCHAR(100) NOT NULL,
     	`business_reg_no` VARCHAR(50) NOT NULL,
+    	`phone` VARCHAR(15) NOT NULL,
     	`created_date`	DATETIME	NULL,
     	`modified_date`	DATETIME	NULL,
     	`role`	VARCHAR(15)	NOT NULL

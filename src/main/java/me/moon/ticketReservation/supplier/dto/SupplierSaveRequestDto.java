@@ -14,15 +14,17 @@ public class SupplierSaveRequestDto {
     private String name;
     private String companyName;
     private String businessRegNo;
+    private String phone;
     private String role;
 
     @Builder
-    public SupplierSaveRequestDto(String email, String password, String name, String companyName, String businessRegNo, String role){
+    public SupplierSaveRequestDto(String email, String password, String name, String companyName, String businessRegNo, String phone, String role){
         this.email = email;
         this.password = password;
         this.name = name;
         this.companyName = companyName;
         this.businessRegNo = businessRegNo;
+        this.phone = phone;
         this.role = role;
     }
 
@@ -33,6 +35,7 @@ public class SupplierSaveRequestDto {
                 .name(this.name)
                 .companyName(this.companyName)
                 .businessRegNo(this.businessRegNo)
+                .phone(this.phone)
                 .role(Role.valueOf(this.role))
                 .build();
     }

@@ -12,13 +12,17 @@ public class SupplierResponseDto {
     private String email;
     private String name;
     private String companyName;
+    private String businessRegNo;
+    private String phone;
     private Role role;
 
     @Builder
-    public SupplierResponseDto(String email, String name, String companyName, Role role){
+    public SupplierResponseDto(String email, String name, String companyName, String businessRegNo, String phone, Role role){
         this.email = email;
         this.name = name;
         this.companyName = companyName;
+        this.businessRegNo = businessRegNo;
+        this.phone = phone;
         this.role = role;
     }
 
@@ -27,6 +31,8 @@ public class SupplierResponseDto {
                 .email(supplier.getEmail())
                 .name(supplier.getName())
                 .companyName(supplier.getCompanyName())
+                .businessRegNo(supplier.getBusinessRegNo())
+                .phone(supplier.getPhone())
                 .role(supplier.getRole())
                 .build();
     }
