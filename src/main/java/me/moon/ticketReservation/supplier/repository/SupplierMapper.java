@@ -7,4 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface SupplierMapper {
     void signUp(Supplier supplier);
     boolean isDuplicateEmail(String email);
+
+    Supplier findById(String userId);
+
+    void update(Supplier supplier);
 }

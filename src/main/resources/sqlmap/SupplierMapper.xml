@@ -23,4 +23,26 @@
                          WHERE EMAIL = #{email}
                       )
     </select>
+
+    <select id="findById" resultType="me.moon.ticketReservation.supplier.entity.Supplier">
+        SELECT *
+          FROM SUPPLIER
+         WHERE id = #{userId}
+    </select>
+
+    <update id="update">
+        <selectKey keyProperty="name,companyName,businessRegNo,phone" resultType="me.moon.ticketReservation.supplier.entity.Supplier" order="AFTER">
+            SELECT name,
+                   company_name AS companyName,
+                   business_reg_no AS businessRegNo,
+                   phone
+              FROM SUPPLIER
+             WHERE id = #{id}
+               AND name =#{name}
+               AND company_name = #{companyName}
+               AND business_reg_no = #{businessRegNo}
+        </selectKey>
+        UPDATE SUPPLIER SET name = #{name}, company_name = #{companyName}, business_reg_no = #{businessRegNo}, phone = #{phone}
+         WHERE id = #{id} AND email = #{email}
+    </update>
 </mapper>

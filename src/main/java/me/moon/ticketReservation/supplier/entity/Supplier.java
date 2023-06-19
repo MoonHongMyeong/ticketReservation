@@ -3,6 +3,7 @@ package me.moon.ticketReservation.supplier.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import me.moon.ticketReservation.supplier.dto.SupplierUpdateRequestDto;
 
 import java.time.LocalDateTime;
 
@@ -34,5 +35,12 @@ public class Supplier {
     public Supplier updatePassword(String password){
         this.password = password;
         return this;
+    }
+
+    public void update(SupplierUpdateRequestDto dto) {
+        this.name = dto.getName();
+        this.companyName = dto.getCompanyName();
+        this.businessRegNo = dto.getBusinessRegNo();
+        this.phone = dto.getPhone();
     }
 }
