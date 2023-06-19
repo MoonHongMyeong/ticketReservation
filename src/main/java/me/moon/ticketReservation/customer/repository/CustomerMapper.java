@@ -8,4 +8,8 @@ public interface CustomerMapper {
     void signUp(Customer customer);
 
     boolean isDuplicateEmail(String email);
+
+    Customer findById(String customerId);
+
+    void update(Customer customer);
 }

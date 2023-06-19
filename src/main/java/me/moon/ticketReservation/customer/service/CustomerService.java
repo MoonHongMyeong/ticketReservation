@@ -3,6 +3,7 @@ package me.moon.ticketReservation.customer.service;
 import lombok.RequiredArgsConstructor;
 import me.moon.ticketReservation.customer.dto.CustomerResponseDto;
 import me.moon.ticketReservation.customer.dto.CustomerSaveRequestDto;
+import me.moon.ticketReservation.customer.dto.CustomerUpdateRequestDto;
 import me.moon.ticketReservation.customer.entity.Customer;
 import me.moon.ticketReservation.customer.repository.CustomerMapper;
 import me.moon.ticketReservation.supplier.exception.DuplicateEmailException;
@@ -26,5 +27,12 @@ public class CustomerService {
 
     private boolean isDuplicateEmail(String email) {
         return customerMapper.isDuplicateEmail(email);
+    }
+
+    public CustomerResponseDto update(String customerId, CustomerUpdateRequestDto dto) {
+        Customer customer = customerMapper.findById(customerId);
+        customer.update(dto);
+        customerMapper.update(customer);
+        return CustomerResponseDto.of(customer);
     }
 }

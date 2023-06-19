@@ -3,12 +3,10 @@ package me.moon.ticketReservation.customer.web;
 import lombok.RequiredArgsConstructor;
 import me.moon.ticketReservation.customer.dto.CustomerResponseDto;
 import me.moon.ticketReservation.customer.dto.CustomerSaveRequestDto;
+import me.moon.ticketReservation.customer.dto.CustomerUpdateRequestDto;
 import me.moon.ticketReservation.customer.service.CustomerService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +17,12 @@ public class CustomerApiController {
     @PostMapping("/customer")
     public ResponseEntity<CustomerResponseDto> signUp(@RequestBody CustomerSaveRequestDto dto){
         CustomerResponseDto response = customerService.signUp(dto);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/customer/{customerId}")
+    public ResponseEntity<CustomerResponseDto> updateCustomerInfo(@RequestBody CustomerUpdateRequestDto dto, @PathVariable(value = "customerId") String customerId){
+        CustomerResponseDto response = customerService.update(customerId, dto);
         return ResponseEntity.ok(response);
     }
 }

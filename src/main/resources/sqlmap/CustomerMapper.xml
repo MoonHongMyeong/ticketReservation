@@ -21,4 +21,22 @@
         WHERE EMAIL = #{email}
         )
     </select>
+
+    <select id="findById" resultType="me.moon.ticketReservation.customer.entity.Customer">
+        SELECT *
+          FROM CUSTOMER
+         WHERE id = #{customerId}
+    </select>
+
+    <update id="update">
+        <selectKey keyProperty="name,phone" resultType="me.moon.ticketReservation.customer.entity.Customer" order="AFTER">
+            SELECT name,
+                   phone
+             FROM CUSTOMER
+            WHERE id = #{id}
+              AND name =#{name}
+        </selectKey>
+        UPDATE CUSTOMER SET name = #{name}, phone = #{phone}, modified_date = now()
+        WHERE id = #{id} AND email = #{email}
+    </update>
 </mapper>

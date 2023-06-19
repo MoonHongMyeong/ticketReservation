@@ -3,6 +3,7 @@ package me.moon.ticketReservation.customer.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.moon.ticketReservation.customer.dto.CustomerUpdateRequestDto;
 
 import java.time.LocalDateTime;
 
@@ -23,5 +24,10 @@ public class Customer {
         this.password = password;
         this.name = name;
         this.phone = phone;
+    }
+
+    public void update(CustomerUpdateRequestDto dto) {
+        this.name = dto.getName();
+        this.phone = dto.getPhone();
     }
 }
