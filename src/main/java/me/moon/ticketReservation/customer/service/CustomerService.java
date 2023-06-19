@@ -7,6 +7,7 @@ import me.moon.ticketReservation.customer.dto.CustomerUpdateRequestDto;
 import me.moon.ticketReservation.customer.entity.Customer;
 import me.moon.ticketReservation.customer.repository.CustomerMapper;
 import me.moon.ticketReservation.supplier.exception.DuplicateEmailException;
+import me.moon.ticketReservation.supplier.exception.WithdrawalException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,5 +35,12 @@ public class CustomerService {
         customer.update(dto);
         customerMapper.update(customer);
         return CustomerResponseDto.of(customer);
+    }
+
+    public void delete(String customerId) {
+        int result = customerMapper.deleteById(customerId);
+        if ( result != 1 ) {
+            throw new WithdrawalException(customerId);
+        }
     }
 }

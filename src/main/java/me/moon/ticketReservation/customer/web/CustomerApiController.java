@@ -25,4 +25,10 @@ public class CustomerApiController {
         CustomerResponseDto response = customerService.update(customerId, dto);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/customer/{customerId}")
+    public ResponseEntity<String> withdrawal(@PathVariable(value = "customerId") String customerId){
+        customerService.delete(customerId);
+        return ResponseEntity.ok("회원탈퇴 성공!");
+    }
 }

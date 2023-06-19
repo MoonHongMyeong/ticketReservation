@@ -12,4 +12,6 @@ public interface CustomerMapper {
     Customer findById(String customerId);
 
     void update(Customer customer);
+
+    int deleteById(String customerId);
 }

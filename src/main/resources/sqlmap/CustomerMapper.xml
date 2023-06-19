@@ -39,4 +39,8 @@
         UPDATE CUSTOMER SET name = #{name}, phone = #{phone}, modified_date = now()
         WHERE id = #{id} AND email = #{email}
     </update>
+
+    <delete id="deleteById">
+        DELETE FROM CUSTOMER WHERE id = #{customerId}
+    </delete>
 </mapper>
