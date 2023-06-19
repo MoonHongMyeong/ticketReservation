@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.moon.ticketReservation.supplier.repository.SupplierMapper">
+    <insert id="signUp">
+        <selectKey keyColumn="id" keyProperty="id" resultType="me.moon.ticketReservation.supplier.entity.Supplier" order="AFTER">
+            SELECT id
+              FROM SUPPLIER
+             WHERE email = #{email}
+               AND name =#{name}
+               AND company_name = #{companyName}
+               AND business_reg_no = #{businessRegNo}
+        </selectKey>
+        INSERT INTO SUPPLIER( email, password, name, company_name, business_reg_no, created_date, modified_date, role)
+        VALUES ( #{email}, #{password}, #{name}, #{companyName}, #{businessRegNo}, now(), now(), #{role});
+    </insert>
+
+    <select id="isDuplicateEmail" resultType="boolean">
+        SELECT EXISTS (
+                        SELECT 1
+                          FROM SUPPLIER
+                         WHERE EMAIL = #{email}
+                      )
+    </select>
+</mapper>
