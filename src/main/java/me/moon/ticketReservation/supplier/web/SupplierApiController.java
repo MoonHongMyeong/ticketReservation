@@ -14,15 +14,21 @@ import org.springframework.web.bind.annotation.*;
 public class SupplierApiController {
     private final SupplierService supplierService;
 
-    @PostMapping("/users")
+    @PostMapping("/supplier")
     public ResponseEntity<SupplierResponseDto> signUp(@RequestBody SupplierSaveRequestDto dto){
         SupplierResponseDto response = supplierService.signUp(dto);
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/users/{userId}")
-    public ResponseEntity<SupplierResponseDto> updateSupplierInfo(@RequestBody SupplierUpdateRequestDto dto, @PathVariable(value = "userId") String userId){
-        SupplierResponseDto response = supplierService.update(userId, dto);
+    @PutMapping("/supplier/{supplierId}")
+    public ResponseEntity<SupplierResponseDto> updateSupplierInfo(@RequestBody SupplierUpdateRequestDto dto, @PathVariable(value = "supplierId") String supplierId){
+        SupplierResponseDto response = supplierService.update(supplierId, dto);
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/supplier/{supplierId}")
+    public ResponseEntity<String> withdrawal(@PathVariable(value = "supplierId") String supplierId){
+        supplierService.delete(supplierId);
+        return ResponseEntity.ok("회원탈퇴 되었습니다.");
     }
 }

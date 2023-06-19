@@ -27,7 +27,7 @@
     <select id="findById" resultType="me.moon.ticketReservation.supplier.entity.Supplier">
         SELECT *
           FROM SUPPLIER
-         WHERE id = #{userId}
+         WHERE id = #{supplierId}
     </select>
 
     <update id="update">
@@ -45,4 +45,8 @@
         UPDATE SUPPLIER SET name = #{name}, company_name = #{companyName}, business_reg_no = #{businessRegNo}, phone = #{phone}
          WHERE id = #{id} AND email = #{email}
     </update>
+
+    <delete id="deleteById">
+        DELETE FROM SUPPLIER WHERE id = #{supplierId}
+    </delete>
 </mapper>

@@ -8,7 +8,9 @@ public interface SupplierMapper {
     void signUp(Supplier supplier);
     boolean isDuplicateEmail(String email);
 
-    Supplier findById(String userId);
+    Supplier findById(String supplierId);
 
     void update(Supplier supplier);
+
+    int deleteById(String supplierId);
 }

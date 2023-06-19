@@ -6,6 +6,7 @@ import me.moon.ticketReservation.supplier.dto.SupplierSaveRequestDto;
 import me.moon.ticketReservation.supplier.dto.SupplierUpdateRequestDto;
 import me.moon.ticketReservation.supplier.entity.Supplier;
 import me.moon.ticketReservation.supplier.exception.DuplicateEmailException;
+import me.moon.ticketReservation.supplier.exception.WithdrawalException;
 import me.moon.ticketReservation.supplier.repository.SupplierMapper;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,8 @@ public class SupplierService {
         return new SupplierResponseDto().of(supplier);
     }
 
-    public SupplierResponseDto update(String userId, SupplierUpdateRequestDto dto) {
-        Supplier supplier = supplierMapper.findById(userId);
+    public SupplierResponseDto update(String supplierId, SupplierUpdateRequestDto dto) {
+        Supplier supplier = supplierMapper.findById(supplierId);
         supplier.update(dto);
         supplierMapper.update(supplier);
         return new SupplierResponseDto().of(supplier);
@@ -37,4 +38,10 @@ public class SupplierService {
     }
 
 
+    public void delete(String supplierId) {
+        int result = supplierMapper.deleteById(supplierId);
+        if (result != 1){
+            throw new WithdrawalException(supplierId);
+        }
+    }
 }
