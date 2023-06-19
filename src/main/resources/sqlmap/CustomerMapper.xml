@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.moon.ticketReservation.customer.repository.CustomerMapper">
+    <insert id="signUp">
+        <selectKey keyColumn="id" keyProperty="id" resultType="me.moon.ticketReservation.customer.entity.Customer" order="AFTER">
+            SELECT id
+            FROM CUSTOMER
+            WHERE email = #{email}
+            AND name =#{name}
+        </selectKey>
+        INSERT INTO CUSTOMER( email, password, name, phone, created_date, modified_date)
+        VALUES ( #{email}, #{password}, #{name}, #{phone}, now(), now());
+    </insert>
+
+    <select id="isDuplicateEmail" resultType="boolean">
+        SELECT EXISTS (
+        SELECT 1
+        FROM CUSTOMER
+        WHERE EMAIL = #{email}
+        )
+    </select>
+
+    <select id="findById" resultType="me.moon.ticketReservation.customer.entity.Customer">
+        SELECT *
+          FROM CUSTOMER
+         WHERE id = #{customerId}
+    </select>
+
+    <update id="update">
+        <selectKey keyProperty="name,phone" resultType="me.moon.ticketReservation.customer.entity.Customer" order="AFTER">
+            SELECT name,
+                   phone
+             FROM CUSTOMER
+            WHERE id = #{id}
+              AND name =#{name}
+        </selectKey>
+        UPDATE CUSTOMER SET name = #{name}, phone = #{phone}, modified_date = now()
+        WHERE id = #{id} AND email = #{email}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM CUSTOMER WHERE id = #{customerId}
+    </delete>
+</mapper>
