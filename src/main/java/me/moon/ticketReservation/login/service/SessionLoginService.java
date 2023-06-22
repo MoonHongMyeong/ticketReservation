@@ -42,4 +42,9 @@ public class SessionLoginService implements LoginService{
             throw new WrongUserRoleException(userRole, ErrorCode.WRONG_LOGIN_REQUEST);
         }
     }
+
+    @Override
+    public void logout() {
+        session.invalidate();
+    }
 }
