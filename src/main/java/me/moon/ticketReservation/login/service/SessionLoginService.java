@@ -9,6 +9,8 @@ import me.moon.ticketReservation.login.dto.LoginResponseDto;
 import me.moon.ticketReservation.login.exception.WrongLoginException;
 import me.moon.ticketReservation.common.exception.ErrorCode;
 import me.moon.ticketReservation.login.exception.WrongUserRoleException;
+import me.moon.ticketReservation.supplier.entity.Supplier;
+import me.moon.ticketReservation.supplier.service.SupplierFindDao;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class SessionLoginService implements LoginService{
     private final HttpSession session;
     private final CustomerFindDao customerFindDao;
+    private final SupplierFindDao supplierFindDao;
     private static final String USER = "USER";
     @Override
     public LoginResponseDto login(String userRole, LoginRequestDto dto) {
@@ -25,6 +28,14 @@ public class SessionLoginService implements LoginService{
                 throw new WrongLoginException(dto.getEmail(), ErrorCode.WRONG_LOGIN_INPUT);
             }
             LoginResponseDto response = LoginResponseDto.of(customer);
+            session.setAttribute(USER, response);
+            return response;
+        }else if ( userRole.equals("supplier")) {
+            Supplier supplier = supplierFindDao.findByLoginRequest(dto);
+            if ( supplier == null ) {
+                throw new WrongLoginException(dto.getEmail(), ErrorCode.WRONG_LOGIN_INPUT);
+            }
+            LoginResponseDto response = LoginResponseDto.of(supplier);
             session.setAttribute(USER, response);
             return response;
         }else{
