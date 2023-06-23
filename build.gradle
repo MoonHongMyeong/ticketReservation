@@ -25,6 +25,9 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	// Lombok 종속성 추가
 	compileOnly 'org.projectlombok:lombok'
+	//spring session 의존성 추가, DB를 세션 저장소로 사용
+	implementation 'org.springframework.session:spring-session-core'
+	implementation 'org.springframework.session:spring-session-jdbc'
 }
 
 tasks.named('test') {
