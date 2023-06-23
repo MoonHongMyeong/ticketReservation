@@ -1,5 +1,6 @@
 package me.moon.ticketReservation.venues.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class Venues {
     private Long id;
+    private Long managerId;
     private String name;
     private BuildingType type;
     private String phone;
@@ -24,4 +26,25 @@ public class Venues {
     private String zone_no;//우편번호
     private String x;//X좌표, 경도
     private String y;//Y좌표, 위도
+
+    @Builder
+    public Venues(Long managerId, String name, BuildingType type, String phone, String homepageUrl, String address_name, String region_1depth_name, String region_2depth_name, String region_3depth_name, String road_name, String underground_yn, String main_building_no, String sub_building_no, String building_name, String zone_no, String x, String y){
+        this.managerId = managerId;
+        this.name = name;
+        this.type = type;
+        this.phone = phone;
+        this.homepageUrl = homepageUrl;
+        this.address_name = address_name;
+        this.region_1depth_name = region_1depth_name;
+        this.region_2depth_name = region_2depth_name;
+        this.region_3depth_name = region_3depth_name;
+        this.road_name = road_name;
+        this.underground_yn = underground_yn;
+        this.main_building_no = main_building_no;
+        this.sub_building_no = sub_building_no;
+        this.building_name = building_name;
+        this.zone_no = zone_no;
+        this.x = x;
+        this.y = y;
+    }
 }
