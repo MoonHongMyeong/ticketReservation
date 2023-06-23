@@ -25,4 +25,31 @@
                            AND zone_no = #{zone_no}
                        )
     </select>
+
+    <select id="findById" resultType="me.moon.ticketReservation.venues.entity.Venues">
+        SELECT id,
+               manager_id AS managerId,
+               name,
+               type,
+               phone,
+               homepage_url as homepageUrl,
+               address_name,
+               region_1depth_name,
+               region_2depth_name,
+               region_3depth_name,
+               road_name,
+               underground_yn,
+               main_building_no,
+               sub_building_no,
+               building_name,
+               zone_no,
+               x,
+               y,
+          FROM VENUES
+         WHERE id = {#id}
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM VENUES WHERE id = #{id}
+    </delete>
 </mapper>

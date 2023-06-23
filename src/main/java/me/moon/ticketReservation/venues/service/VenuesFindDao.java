@@ -14,4 +14,8 @@ public class VenuesFindDao {
     public boolean isDuplicateVenues(Venues venues) {
         return venuesMapper.isExistsVenues(venues);
     }
+
+    public Venues findById(String venuesId) {
+        return venuesMapper.findById(venuesId);
+    }
 }

@@ -8,4 +8,8 @@ public interface VenuesMapper {
     void save(Venues venues);
 
     boolean isExistsVenues(Venues venues);
+
+    Venues findById(String venuesId);
+
+    int deleteById(String venuesId);
 }

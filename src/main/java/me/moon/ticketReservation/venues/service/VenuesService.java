@@ -3,6 +3,7 @@ package me.moon.ticketReservation.venues.service;
 import lombok.RequiredArgsConstructor;
 import me.moon.ticketReservation.common.exception.ErrorCode;
 import me.moon.ticketReservation.login.entity.SessionUser;
+import me.moon.ticketReservation.login.exception.UnauthorizedAccessException;
 import me.moon.ticketReservation.login.exception.WrongUserRoleException;
 import me.moon.ticketReservation.supplier.entity.Role;
 import me.moon.ticketReservation.supplier.entity.Supplier;
@@ -11,6 +12,7 @@ import me.moon.ticketReservation.venues.dto.VenuesResponseDto;
 import me.moon.ticketReservation.venues.dto.VenuesSaveRequestDto;
 import me.moon.ticketReservation.venues.entity.Venues;
 import me.moon.ticketReservation.venues.exception.DuplicateVenuesException;
+import me.moon.ticketReservation.venues.exception.VenuesNotFoundException;
 import me.moon.ticketReservation.venues.repository.VenuesMapper;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +44,20 @@ public class VenuesService {
     private boolean isDuplicateVenues(SessionUser sessionUser, VenuesSaveRequestDto dto) {
         Venues venues = dto.toEntity(sessionUser);
         return venuesFindDao.isDuplicateVenues(venues);
+    }
+
+    public void delete(SessionUser sessionUser, String venuesId) {
+        Venues venues = venuesFindDao.findById(venuesId);
+        if ( !compareSessionUserIdAndManagerId(sessionUser.getId(), venues.getManagerId()) ){
+            throw new UnauthorizedAccessException("venuesId : "+venuesId, ErrorCode.UNAUTHORIZED_ACCESS);
+        }
+        int result = venuesMapper.deleteById(venuesId);
+        if ( result != 1 ){
+            throw new VenuesNotFoundException(ErrorCode.VENUS_NOT_FOUND);
+        }
+    }
+
+    private boolean compareSessionUserIdAndManagerId(Long sessionUserId, Long managerId) {
+        return sessionUserId.equals(managerId);
     }
 }

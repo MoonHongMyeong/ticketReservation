@@ -15,7 +15,8 @@ public enum ErrorCode {
     LOGIN_REQUIRED(401, "C401", "로그인이 필요한 요청입니다."),
     UNAUTHORIZED_ACCESS(403, "C433", "허가되지 않은 접근입니다."),
     WRONG_USER_ROLE(403, "C443", "권한이 없는 요청입니다.\n권한을 확인해주세요."),
-    DUPLICATE_VENUES(409, "C479", "중복된 공연장입니다.");
+    DUPLICATE_VENUES(409, "C479", "중복된 공연장입니다."),
+    VENUS_NOT_FOUND(400, "C410", "해당 공연장을 찾을 수 없습니다.");
 
     private int status;
     private final String code;
