@@ -14,4 +14,8 @@ public class SupplierFindDao {
     public Supplier findByLoginRequest(LoginRequestDto dto) {
         return supplierMapper.findByLoginRequest(dto);
     }
+
+    public Supplier findById(String id) {
+        return supplierMapper.findById(id);
+    }
 }

@@ -25,7 +25,13 @@
     </select>
 
     <select id="findById" resultType="me.moon.ticketReservation.supplier.entity.Supplier">
-        SELECT *
+        SELECT id,
+               email,
+               name,
+               company_name AS companyName,
+               business_reg_no AS businessRegNo,
+               phone,
+               role
           FROM SUPPLIER
          WHERE id = #{supplierId}
     </select>
