@@ -6,6 +6,7 @@ import me.moon.ticketReservation.customer.entity.Customer;
 import me.moon.ticketReservation.customer.service.CustomerFindDao;
 import me.moon.ticketReservation.login.dto.LoginRequestDto;
 import me.moon.ticketReservation.login.dto.LoginResponseDto;
+import me.moon.ticketReservation.login.entity.SessionUser;
 import me.moon.ticketReservation.login.exception.WrongLoginException;
 import me.moon.ticketReservation.common.exception.ErrorCode;
 import me.moon.ticketReservation.login.exception.WrongUserRoleException;
@@ -27,17 +28,17 @@ public class SessionLoginService implements LoginService{
             if ( customer == null ){
                 throw new WrongLoginException(dto.getEmail(), ErrorCode.WRONG_LOGIN_INPUT);
             }
-            LoginResponseDto response = LoginResponseDto.of(customer);
-            session.setAttribute(USER, response);
-            return response;
+            SessionUser sessionUser = new SessionUser(customer);
+            session.setAttribute(USER, sessionUser);
+            return LoginResponseDto.of(sessionUser);
         }else if ( userRole.equals("supplier")) {
             Supplier supplier = supplierFindDao.findByLoginRequest(dto);
             if ( supplier == null ) {
                 throw new WrongLoginException(dto.getEmail(), ErrorCode.WRONG_LOGIN_INPUT);
             }
-            LoginResponseDto response = LoginResponseDto.of(supplier);
-            session.setAttribute(USER, response);
-            return response;
+            SessionUser sessionUser = new SessionUser(supplier);
+            session.setAttribute(USER, sessionUser);
+            return LoginResponseDto.of(sessionUser);
         }else{
             throw new WrongUserRoleException(userRole, ErrorCode.WRONG_LOGIN_REQUEST);
         }
