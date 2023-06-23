@@ -11,7 +11,9 @@ public enum ErrorCode {
     DUPLICATE_EMAIL(409, "C409", "이미 가입된 회원입니다."),
     WITHDRAWAL(409, "C410", "회원탈퇴 문제가 발생했습니다."),
     WRONG_LOGIN_REQUEST(403, "C413", "잘못된 로그인 요청입니다."),
-    WRONG_LOGIN_INPUT(403, "C423", "이메일 혹은 비밀번호가 잘못되었습니다.");
+    WRONG_LOGIN_INPUT(403, "C423", "이메일 혹은 비밀번호가 잘못되었습니다."),
+    LOGIN_REQUIRED(401, "C401", "로그인이 필요한 요청입니다."),
+    UNAUTHORIZED_ACCESS(403, "C433", "허가되지 않은 접근입니다.");
 
     private int status;
     private final String code;
