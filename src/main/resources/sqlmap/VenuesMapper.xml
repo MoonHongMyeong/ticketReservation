@@ -3,6 +3,36 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="me.moon.ticketReservation.venues.repository.VenuesMapper">
+
+    <resultMap id="searchVenues" type="me.moon.ticketReservation.venues.entity.Venues">
+        <id column="id" property="id"/>
+        <result column="manager_id" property="managerId"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="phone" property="phone"/>
+        <result column="homepageUrl" property="homepageUrl"/>
+        <result column="address_name" property="address_name"/>
+        <result column="region_1depth_name" property="region_1depth_name"/>
+        <result column="region_2depth_name" property="region_2depth_name"/>
+        <result column="region_3depth_name" property="region_3depth_name"/>
+        <result column="road_name" property="road_name"/>
+        <result column="underground_yn" property="underground_yn"/>
+        <result column="main_building_no" property="main_building_no"/>
+        <result column="sub_building_no" property="sub_building_no"/>
+        <result column="building_name" property="building_name"/>
+        <result column="zone_no" property="zone_no"/>
+        <result column="x" property="x"/>
+        <result column="y" property="y"/>
+        <association column="manager_id" property="manager" javaType="me.moon.ticketReservation.supplier.entity.Supplier">
+            <id column="manager_id" property="manager_id"/>
+            <result column="email" property="email"/>
+            <result column="name" property="name"/>
+            <result column="companyName" property="companyName"/>
+            <result column="businessRegNo" property="businessRegNo"/>
+            <result column="role" property="role"/>
+        </association>
+    </resultMap>
+
     <insert id="save">
         <selectKey keyColumn="id" keyProperty="id" resultType="me.moon.ticketReservation.venues.entity.Venues" order="AFTER">
             SELECT id
@@ -52,4 +82,64 @@
     <delete id="deleteById">
         DELETE FROM VENUES WHERE id = #{id}
     </delete>
+
+    <select id="search" resultMap="searchVenues">
+        SELECT  A.id,
+                A.managerId,
+                A.name,
+                A.type,
+                A.phone,
+                A.homepageUrl,
+                A.address_name,
+                A.region_1depth_name,
+                A.region_2depth_name,
+                A.region_3depth_name,
+                A.road_name,
+                A.underground_yn,
+                A.main_building_no,
+                A.sub_building_no,
+                A.building_name,
+                A.zone_no,
+                A.x,
+                A.y,
+                B.id,
+                B.email,
+                B.name AS userName,
+                B.company_name AS companyName,
+                B.business_reg_no AS businessRegNo,
+                B.role
+        FROM (SELECT id,
+                     manager_id AS managerId,
+                     name,
+                     type,
+                     phone,
+                     homepage_url AS homepageUrl,
+                     address_name,
+                     region_1depth_name,
+                     region_2depth_name,
+                     region_3depth_name,
+                     road_name,
+                     underground_yn,
+                     main_building_no,
+                     sub_building_no,
+                     building_name,
+                     zone_no,
+                     x,
+                     y
+                     FROM VENUES) A,
+              SUPPLIER B
+        WHERE A.managerId = B.id
+        <if test="id != '' and id != null">
+            AND A.id = '${id}'
+        </if>
+        <if test="name != '' and name != null">
+            AND A.name LIKE '%${name}%'
+        </if>
+        <if test="type != '' and type != null">
+            AND A.type = '${type}'
+        </if>
+        <if test="addressName != '' and addressName != null">
+            AND A.address_name LIKE '%${addressName}%'
+        </if>
+    </select>
 </mapper>

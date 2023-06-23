@@ -16,6 +16,11 @@ import me.moon.ticketReservation.venues.exception.VenuesNotFoundException;
 import me.moon.ticketReservation.venues.repository.VenuesMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class VenuesService {
@@ -48,7 +53,7 @@ public class VenuesService {
 
     public void delete(SessionUser sessionUser, String venuesId) {
         Venues venues = venuesFindDao.findById(venuesId);
-        if ( !compareSessionUserIdAndManagerId(sessionUser.getId(), venues.getManagerId()) ){
+        if ( !compareSessionUserIdAndManagerId(sessionUser.getId(), venues.getManager().getId()) ){
             throw new UnauthorizedAccessException("venuesId : "+venuesId, ErrorCode.UNAUTHORIZED_ACCESS);
         }
         int result = venuesMapper.deleteById(venuesId);
@@ -59,5 +64,19 @@ public class VenuesService {
 
     private boolean compareSessionUserIdAndManagerId(Long sessionUserId, Long managerId) {
         return sessionUserId.equals(managerId);
+    }
+
+    public List<VenuesResponseDto> search(String id, String name, String type, String addressName) {
+        //쿼리에서 서치하고 엔티티를 DTO로 바꾸는 과정에서 DB SELECT
+        Map<String, String> searchKeyword = new HashMap<>();
+        searchKeyword.put("id", id);
+        searchKeyword.put("name", name);
+        searchKeyword.put("type", type);
+        searchKeyword.put("addressName", addressName);
+        List<Venues> venuesList = venuesMapper.search(searchKeyword);
+
+        return venuesList.stream()
+                .map(venues -> VenuesResponseDto.of(venues))
+                .collect(Collectors.toList());
     }
 }

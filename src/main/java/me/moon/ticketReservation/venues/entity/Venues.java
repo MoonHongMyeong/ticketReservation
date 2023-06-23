@@ -3,12 +3,14 @@ package me.moon.ticketReservation.venues.entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.moon.ticketReservation.supplier.entity.Supplier;
 
 @NoArgsConstructor
 @Getter
 public class Venues {
     private Long id;
     private Long managerId;
+    private Supplier manager;
     private String name;
     private BuildingType type;
     private String phone;

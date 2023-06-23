@@ -54,9 +54,32 @@ public class VenuesResponseDto {
     }
 
     public static VenuesResponseDto of(Venues venues, Supplier supplier){
+            return VenuesResponseDto.builder()
+                    .id(venues.getId())
+                    .manager(SupplierResponseDto.of(supplier))
+                    .name(venues.getName())
+                    .type(venues.getType())
+                    .phone(venues.getPhone())
+                    .homepageUrl(venues.getHomepageUrl())
+                    .address_name(venues.getAddress_name())
+                    .region_1depth_name(venues.getRegion_1depth_name())
+                    .region_2depth_name(venues.getRegion_2depth_name())
+                    .region_3depth_name(venues.getRegion_3depth_name())
+                    .road_name(venues.getRoad_name())
+                    .underground_yn(venues.getUnderground_yn())
+                    .main_building_no(venues.getMain_building_no())
+                    .sub_building_no(venues.getSub_building_no())
+                    .building_name(venues.getBuilding_name())
+                    .zone_no(venues.getZone_no())
+                    .x(venues.getX())
+                    .y(venues.getY())
+                    .build();
+    }
+
+    public static VenuesResponseDto of(Venues venues){
         return VenuesResponseDto.builder()
                 .id(venues.getId())
-                .manager(SupplierResponseDto.of(supplier))
+                .manager(SupplierResponseDto.of(venues.getManager()))
                 .name(venues.getName())
                 .type(venues.getType())
                 .phone(venues.getPhone())
@@ -74,6 +97,5 @@ public class VenuesResponseDto {
                 .x(venues.getX())
                 .y(venues.getY())
                 .build();
-
     }
 }
