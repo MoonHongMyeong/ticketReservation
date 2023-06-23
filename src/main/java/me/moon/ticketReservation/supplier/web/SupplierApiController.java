@@ -1,6 +1,9 @@
 package me.moon.ticketReservation.supplier.web;
 
 import lombok.RequiredArgsConstructor;
+import me.moon.ticketReservation.login.annotation.LoginRequired;
+import me.moon.ticketReservation.login.annotation.LoginUser;
+import me.moon.ticketReservation.login.entity.SessionUser;
 import me.moon.ticketReservation.supplier.dto.SupplierResponseDto;
 import me.moon.ticketReservation.supplier.dto.SupplierSaveRequestDto;
 import me.moon.ticketReservation.supplier.dto.SupplierUpdateRequestDto;
@@ -20,15 +23,17 @@ public class SupplierApiController {
         return ResponseEntity.ok(response);
     }
 
+    @LoginRequired
     @PutMapping("/supplier/{supplierId}")
-    public ResponseEntity<SupplierResponseDto> updateSupplierInfo(@RequestBody SupplierUpdateRequestDto dto, @PathVariable(value = "supplierId") String supplierId){
-        SupplierResponseDto response = supplierService.update(supplierId, dto);
+    public ResponseEntity<SupplierResponseDto> updateSupplierInfo(@LoginUser SessionUser sessionUser, @RequestBody SupplierUpdateRequestDto dto, @PathVariable(value = "supplierId") String supplierId){
+        SupplierResponseDto response = supplierService.update(sessionUser, supplierId, dto);
         return ResponseEntity.ok(response);
     }
 
+    @LoginRequired
     @DeleteMapping("/supplier/{supplierId}")
-    public ResponseEntity<String> withdrawal(@PathVariable(value = "supplierId") String supplierId){
-        supplierService.delete(supplierId);
+    public ResponseEntity<String> withdrawal(@LoginUser SessionUser sessionUser, @PathVariable(value = "supplierId") String supplierId){
+        supplierService.delete(sessionUser, supplierId);
         return ResponseEntity.ok("회원탈퇴 되었습니다.");
     }
 }
