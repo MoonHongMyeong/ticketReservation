@@ -41,6 +41,22 @@ CREATE TABLE `venues`(
     `zone_no` VARCHAR(5) NULL,
     `x` VARCHAR(50) NULL,
     `y` VARCHAR(50) NULL,
-    created_date DATETIME NULL,
-    modified_date DATETIME NULL
-)
+    `created_date` DATETIME NULL,
+    `modified_date` DATETIME NULL
+);
+DROP TABLE IF EXISTS `performance`;
+CREATE TABLE `performance`(
+        `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `manager_id` BIGINT NOT NULL,
+        `venues_id` BIGINT NOT NULL,
+        `genre` VARCHAR(15) NOT NULL,
+        `name` VARCHAR(100) NOT NULL,
+        `phone` VARCHAR(15) NOT NULL,
+        `runtime` INTEGER NOT NULL,
+        `inter_mission` INTEGER NOT NULL,
+        `film_rating_system` VARCHAR(5) NOT NULL DEFAULT `ALL`,
+        `start_date` DATETIME NOT NULL,
+        `end_date` DATETIME NOT NULL,
+        `created_date` DATETIME NULL,
+        `modified_date` DATETIME NULL
+);
