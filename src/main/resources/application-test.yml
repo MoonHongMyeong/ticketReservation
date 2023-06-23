@@ -8,3 +8,9 @@ spring:
     url: jdbc:h2:tcp://localhost/~/test
     username: sa
     password:
+  session:
+    timeout: 3000
+    store-type: jdbc
+    jdbc:
+      initialize-schema: always
+      table-name: SPRING_SESSION

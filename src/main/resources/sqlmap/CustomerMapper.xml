@@ -43,4 +43,11 @@
     <delete id="deleteById">
         DELETE FROM CUSTOMER WHERE id = #{customerId}
     </delete>
+
+    <select id="findByLoginRequest" resultType="me.moon.ticketReservation.customer.entity.Customer">
+        SELECT *
+         FROM CUSTOMER
+        WHERE email = #{email}
+          AND password = #{password}
+    </select>
 </mapper>

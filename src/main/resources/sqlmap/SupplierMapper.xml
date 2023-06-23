@@ -49,4 +49,11 @@
     <delete id="deleteById">
         DELETE FROM SUPPLIER WHERE id = #{supplierId}
     </delete>
+
+    <select id="findByLoginRequest" resultType="me.moon.ticketReservation.supplier.entity.Supplier">
+        SELECT *
+          FROM SUPPLIER
+         WHERE email = #{email}
+           AND password = #{password}
+    </select>
 </mapper>
