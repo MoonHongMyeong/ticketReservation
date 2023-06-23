@@ -5,6 +5,9 @@ import me.moon.ticketReservation.customer.dto.CustomerResponseDto;
 import me.moon.ticketReservation.customer.dto.CustomerSaveRequestDto;
 import me.moon.ticketReservation.customer.dto.CustomerUpdateRequestDto;
 import me.moon.ticketReservation.customer.service.CustomerService;
+import me.moon.ticketReservation.login.annotation.LoginRequired;
+import me.moon.ticketReservation.login.annotation.LoginUser;
+import me.moon.ticketReservation.login.entity.SessionUser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,15 +23,17 @@ public class CustomerApiController {
         return ResponseEntity.ok(response);
     }
 
+    @LoginRequired
     @PutMapping("/customer/{customerId}")
-    public ResponseEntity<CustomerResponseDto> updateCustomerInfo(@RequestBody CustomerUpdateRequestDto dto, @PathVariable(value = "customerId") String customerId){
-        CustomerResponseDto response = customerService.update(customerId, dto);
+    public ResponseEntity<CustomerResponseDto> updateCustomerInfo(@LoginUser SessionUser sessionUser, @RequestBody CustomerUpdateRequestDto dto, @PathVariable(value = "customerId") String customerId){
+        CustomerResponseDto response = customerService.update(sessionUser, customerId, dto);
         return ResponseEntity.ok(response);
     }
 
+    @LoginRequired
     @DeleteMapping("/customer/{customerId}")
-    public ResponseEntity<String> withdrawal(@PathVariable(value = "customerId") String customerId){
-        customerService.delete(customerId);
+    public ResponseEntity<String> withdrawal(@LoginUser SessionUser sessionUser, @PathVariable(value = "customerId") String customerId){
+        customerService.delete(sessionUser, customerId);
         return ResponseEntity.ok("회원탈퇴 성공!");
     }
 }
