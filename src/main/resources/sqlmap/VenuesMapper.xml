@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.moon.ticketReservation.venues.repository.VenuesMapper">
+    <insert id="save">
+        <selectKey keyColumn="id" keyProperty="id" resultType="me.moon.ticketReservation.venues.entity.Venues" order="AFTER">
+            SELECT id
+            FROM VENUES
+            WHERE manager_id = #{managerId}
+              AND name = #{name}
+              AND phone = #{phone}
+        </selectKey>
+        INSERT INTO VENUES( manager_id, name, type, phone, homepage_url, address_name, region_1depth_name, region_2depth_name, region_3depth_name, road_name, underground_yn, main_building_no, sub_building_no, building_name, zone_no, x, y, created_date, modified_date)
+        VALUES( #{managerId}, #{name}, #{type}, #{phone}, #{homepageUrl}, #{address_name}, #{region_1depth_name}, #{region_2depth_name}, #{region_3depth_name}, #{road_name}, #{underground_yn}, #{main_building_no}, #{sub_building_no}, #{building_name}, #{zone_no}, #{x}, #{y}, now(), now())
+    </insert>
+
+    <select id="isExistsVenues" resultType="boolean">
+        SELECT EXISTS (
+                        SELECT 1
+                          FROM VENUES
+                         WHERE manager_id = #{managerId}
+                           AND name = #{name}
+                           AND building_name = #{building_name}
+                           AND zone_no = #{zone_no}
+                       )
+    </select>
+</mapper>
