@@ -21,3 +21,26 @@ CREATE TABLE `customer`(
     `created_date` DATETIME NULL,
     `modified_date` DATETIME NULL
 );
+DROP TABLE IF EXISTS `venues`;
+CREATE TABLE `venues`(
+    `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `manager_id` BIGINT NOT NULL,
+    `type` VARCHAR(15) NOT NULL,
+    `name` VARCHAR(100) NOT NULL,
+    `phone` VARCHAR(15) NOT NULL,
+    `homepage_url` VARCHAR(100) NULL,
+    `address_name` VARCHAR(200) NOT NULL,
+    `region_1depth_name` VARCHAR(50) NULL,
+    `region_2depth_name` VARCHAR(50) NULL,
+    `region_3depth_name` VARCHAR(50) NULL,
+    `road_name` VARCHAR(100) NULL,
+    `underground_yn` VARCHAR(2) NULL,
+    `main_building_no` VARCHAR(20) NULL,
+    `sub_building_no` VARCHAR(20) NULL,
+    `building_name` VARCHAR(100) NULL,
+    `zone_no` VARCHAR(5) NULL,
+    `x` VARCHAR(50) NULL,
+    `y` VARCHAR(50) NULL,
+    created_date DATETIME NULL,
+    modified_date DATETIME NULL
+)
