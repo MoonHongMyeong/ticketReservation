@@ -8,14 +8,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Seat {
     private Long id;
-    private Long performance_id;
+    private Long performanceId;
     private Performance performance;
     private String name;
+    private String grade;
+    private int cost;
 
     @Builder
-    public Seat(Performance performance, String name){
-        this.performance_id = performance.getId();
+    public Seat(Performance performance, String name, String grade, int cost){
+        this.performanceId = performance.getId();
         this.performance = performance;
         this.name = name;
+        this.grade = grade;
+        this.cost = cost;
     }
 }

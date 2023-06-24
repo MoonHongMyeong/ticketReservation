@@ -2,13 +2,12 @@ package me.moon.ticketReservation.performance.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.moon.ticketReservation.performance.entity.FilmRating;
-import me.moon.ticketReservation.performance.entity.Genre;
-import me.moon.ticketReservation.performance.entity.Performance;
+import me.moon.ticketReservation.performance.entity.*;
 import me.moon.ticketReservation.supplier.entity.Supplier;
 import me.moon.ticketReservation.venues.entity.Venues;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -21,6 +20,7 @@ public class PerformanceSaveRequestDto {
     private String filmRating;
     private Date startDate;
     private Date endDate;
+    private List<Seat> seats;
 
     public Performance toEntity(Supplier manager, Venues venues){
         return Performance.builder()
@@ -34,6 +34,7 @@ public class PerformanceSaveRequestDto {
                 .filmRating(FilmRating.valueOf(filmRating))
                 .startDate(this.startDate)
                 .endDate(this.endDate)
+                .seats(this.seats)
                 .build();
     }
 }

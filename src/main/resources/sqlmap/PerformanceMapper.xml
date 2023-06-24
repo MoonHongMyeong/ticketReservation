@@ -42,8 +42,17 @@
             <result column="x" property="x"/>
             <result column="y" property="y"/>
         </association>
+        <collection column="performanceId = id" property="seats" javaType="List" ofType="me.moon.ticketReservation.performance.entity.Seat" select="getSeatsByPerformance"/>
     </resultMap>
-
+    <select id="getSeatsByPerformance" resultType="me.moon.ticketReservation.performance.entity.Seat">
+        SELECT id,
+                performance_id AS performanceId,
+                name,
+                grade,
+                cost
+          FROM SEAT
+         WHERE performance_id = #{performanceId}
+    </select>
     <insert id="save">
         <selectKey keyColumn="id" keyProperty="id" resultType="me.moon.ticketReservation.performance.entity.Performance" order="AFTER">
             SELECT id

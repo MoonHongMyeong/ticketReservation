@@ -7,6 +7,7 @@ import me.moon.ticketReservation.supplier.entity.Supplier;
 import me.moon.ticketReservation.venues.entity.Venues;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -24,9 +25,10 @@ public class Performance {
     private FilmRating filmRating;
     private Date startDate;
     private Date endDate;
+    private List<Seat> seats;
 
     @Builder
-    public Performance(Long managerId, Long venuesId, Genre genre, String name, String phone, int runtime, int intermission, FilmRating filmRating, Date startDate, Date endDate){
+    public Performance(Long managerId, Long venuesId, Genre genre, String name, String phone, int runtime, int intermission, FilmRating filmRating, Date startDate, Date endDate, List<Seat> seats){
         this.managerId = managerId;
         this.venuesId = venuesId;
         this.genre = genre;
@@ -37,5 +39,6 @@ public class Performance {
         this.filmRating = filmRating;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.seats = seats;
     }
 }
