@@ -60,3 +60,21 @@ CREATE TABLE `performance`(
         `created_date` DATETIME NULL,
         `modified_date` DATETIME NULL
 );
+
+DROP TABLE IF EXISTS `cost`;
+CREATE TABLE `cost`(
+        `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `performance_id` BIGINT NOT NULL,
+        `grade` VARCHAR(5) NOT NULL,
+        `price` INT NOT NULL,
+        `modified_date` DATETIME NULL
+);
+
+DROP TABLE IF EXISTS `seat`;
+CREATE TABLE `performance`(
+        `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `performance_id` BIGINT NOT NULL,
+        `name` VARCHAR(20) NOT NULL,
+        `created_date` DATETIME NULL,
+        `modified_date` DATETIME NULL
+);
