@@ -70,3 +70,29 @@ CREATE TABLE `seat`(
         `created_date` DATETIME NULL,
         `modified_date` DATETIME NULL
 );
+DROP TABLE IF EXISTS `reservation`;
+CREATE TABLE `reservation`(
+        `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `seat_id` BIGINT NOT NULL,
+        `customer_id` BIGINT NOT NULL,
+        `created_date` DATETIME NULL,
+        `modified_date` DATETIME NULL
+);
+DROP TABLE IF EXISTS `payment`;
+CREATE TABLE `payment`(
+        `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `payment_method` VARCHAR(10) NOT NULL,
+        `price` INT NOT NULL,
+        `purchase_date` DATETIME NOT NULL,
+        `requested_date` DATETIME NOT NULL,
+        `created_date` DATETIME NOT NULL,
+        `modified_date` DATETIME NOT NULL
+);
+DROP TABLE IF EXISTS `ticket`;
+CREATE TABLE `ticket`(
+    `id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY,
+    `seat_id` BIGINT NOT NULL,
+    `payment_id` BIGINT NOT NULL,
+    `created_date` DATETIME NOT NULL,
+    `modified_date` DATETIME NOT NULL
+);
