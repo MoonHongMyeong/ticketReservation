@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-@MapperScan(value = {"me.moon.ticketReservation.supplier.repository", "me.moon.ticketReservation.customer.repository", "me.moon.ticketReservation.venues.repository"})
+@MapperScan(value = {"me.moon.ticketReservation.supplier.repository", "me.moon.ticketReservation.customer.repository", "me.moon.ticketReservation.venues.repository", "me.moon.ticketReservation.performance.repository"})
 @RequiredArgsConstructor
 public class DataSourceConfig {
     private final ApplicationContext applicationContext;

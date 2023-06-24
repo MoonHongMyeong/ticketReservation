@@ -24,7 +24,7 @@
         <result column="x" property="x"/>
         <result column="y" property="y"/>
         <association column="manager_id" property="manager" javaType="me.moon.ticketReservation.supplier.entity.Supplier">
-            <id column="manager_id" property="manager_id"/>
+            <id column="manager_id" property="id"/>
             <result column="email" property="email"/>
             <result column="name" property="name"/>
             <result column="companyName" property="companyName"/>
@@ -76,7 +76,7 @@
                x,
                y,
           FROM VENUES
-         WHERE id = {#id}
+         WHERE id = #{id}
     </select>
 
     <delete id="deleteById">
