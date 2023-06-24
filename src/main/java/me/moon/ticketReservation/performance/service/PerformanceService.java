@@ -8,9 +8,11 @@ import me.moon.ticketReservation.login.exception.WrongUserRoleException;
 import me.moon.ticketReservation.performance.dto.PerformanceResponseDto;
 import me.moon.ticketReservation.performance.dto.PerformanceSaveRequestDto;
 import me.moon.ticketReservation.performance.entity.Performance;
+import me.moon.ticketReservation.performance.entity.Seat;
 import me.moon.ticketReservation.performance.exception.DuplicatePerformanceException;
 import me.moon.ticketReservation.performance.exception.PerformanceNotFoundException;
 import me.moon.ticketReservation.performance.repository.PerformanceMapper;
+import me.moon.ticketReservation.performance.repository.SeatMapper;
 import me.moon.ticketReservation.supplier.entity.Role;
 import me.moon.ticketReservation.supplier.entity.Supplier;
 import me.moon.ticketReservation.supplier.service.SupplierFindDao;
@@ -23,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PerformanceService {
     private final PerformanceMapper performanceMapper;
+    private final SeatMapper seatMapper;
     private final SupplierFindDao supplierFindDao;
     private final VenuesFindDao venuesFindDao;
 
@@ -40,6 +43,16 @@ public class PerformanceService {
         }
 
         performanceMapper.save(performance);
+        for(Seat item : dto.getSeats()){
+            Seat seat = Seat.builder()
+                    .performance(performance)
+                    .name(item.getName())
+                    .grade(item.getGrade())
+                    .cost(item.getCost())
+                    .build();
+
+            seatMapper.save(seat);
+        }
 
         Performance response = performanceMapper.findById(performance.getId());
 
@@ -71,4 +84,5 @@ public class PerformanceService {
     private boolean compareSessionUserAndPerformanceManager(SessionUser sessionUser, Supplier manager) {
         return sessionUser.getId().equals(manager.getId());
     }
+
 }

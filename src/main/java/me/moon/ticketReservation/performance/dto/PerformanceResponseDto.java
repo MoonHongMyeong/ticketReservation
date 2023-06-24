@@ -6,10 +6,12 @@ import lombok.NoArgsConstructor;
 import me.moon.ticketReservation.performance.entity.FilmRating;
 import me.moon.ticketReservation.performance.entity.Genre;
 import me.moon.ticketReservation.performance.entity.Performance;
+import me.moon.ticketReservation.performance.entity.Seat;
 import me.moon.ticketReservation.supplier.entity.Supplier;
 import me.moon.ticketReservation.venues.entity.Venues;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -25,9 +27,10 @@ public class PerformanceResponseDto {
     private FilmRating filmRating;
     private Date startDate;
     private Date endDate;
+    private List<Seat> seats;
 
     @Builder
-    public PerformanceResponseDto(Long id, Supplier manager, Venues venues, Genre genre, String name, String phone, int runtime, int intermission, FilmRating filmRating, Date startDate, Date endDate){
+    public PerformanceResponseDto(Long id, Supplier manager, Venues venues, Genre genre, String name, String phone, int runtime, int intermission, FilmRating filmRating, Date startDate, Date endDate, List<Seat> seats){
         this.id = id;
         this.manager = manager;
         this.venues = venues;
@@ -39,6 +42,7 @@ public class PerformanceResponseDto {
         this.filmRating = filmRating;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.seats = seats;
     }
 
     public static PerformanceResponseDto of(Performance performance){
@@ -54,6 +58,7 @@ public class PerformanceResponseDto {
                 .filmRating(performance.getFilmRating())
                 .startDate(performance.getStartDate())
                 .endDate(performance.getEndDate())
+                .seats(performance.getSeats())
                 .build();
     }
 
