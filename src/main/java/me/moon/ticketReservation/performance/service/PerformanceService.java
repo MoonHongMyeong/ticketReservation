@@ -3,11 +3,13 @@ package me.moon.ticketReservation.performance.service;
 import lombok.RequiredArgsConstructor;
 import me.moon.ticketReservation.common.exception.ErrorCode;
 import me.moon.ticketReservation.login.entity.SessionUser;
+import me.moon.ticketReservation.login.exception.UnauthorizedAccessException;
 import me.moon.ticketReservation.login.exception.WrongUserRoleException;
 import me.moon.ticketReservation.performance.dto.PerformanceResponseDto;
 import me.moon.ticketReservation.performance.dto.PerformanceSaveRequestDto;
 import me.moon.ticketReservation.performance.entity.Performance;
 import me.moon.ticketReservation.performance.exception.DuplicatePerformanceException;
+import me.moon.ticketReservation.performance.exception.PerformanceNotFoundException;
 import me.moon.ticketReservation.performance.repository.PerformanceMapper;
 import me.moon.ticketReservation.supplier.entity.Role;
 import me.moon.ticketReservation.supplier.entity.Supplier;
@@ -50,5 +52,23 @@ public class PerformanceService {
 
     private boolean isShowManager(SessionUser sessionUser) {
         return sessionUser.getRole().equals(Role.SHOW_MANAGER.toString());
+    }
+
+    public void delete(SessionUser sessionUser, String venuesId, String performanceId) {
+        Performance performance = performanceMapper.findById(Long.parseLong(performanceId));
+
+        if ( !compareSessionUserAndPerformanceManager(sessionUser, performance.getManager()) ){
+            throw new UnauthorizedAccessException(sessionUser.getId().toString(), ErrorCode.UNAUTHORIZED_ACCESS);
+        }
+
+        int result = performanceMapper.deleteById(Long.parseLong(performanceId));
+
+        if ( result != 1 ){
+            throw new PerformanceNotFoundException(venuesId, ErrorCode.VENUS_NOT_FOUND);
+        }
+    }
+
+    private boolean compareSessionUserAndPerformanceManager(SessionUser sessionUser, Supplier manager) {
+        return sessionUser.getId().equals(manager.getId());
     }
 }

@@ -23,4 +23,11 @@ public class PerformanceApiController {
         return ResponseEntity.ok(response);
     }
 
+    @LoginRequired
+    @DeleteMapping("/venues/{venuesId}/performance/{performanceId}")
+    public ResponseEntity<String> deletePerformance(@LoginUser SessionUser sessionUser, @PathVariable(value = "venuesId") String venuesId, @PathVariable(value = "performanceId") String performanceId){
+        performanceService.delete(sessionUser, venuesId, performanceId);
+        return ResponseEntity.ok("공연 삭제 성공!");
+    }
+
 }

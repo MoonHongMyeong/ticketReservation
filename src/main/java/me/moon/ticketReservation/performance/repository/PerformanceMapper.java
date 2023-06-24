@@ -10,4 +10,6 @@ public interface PerformanceMapper {
     Performance findById(Long id);
 
     boolean isExistPerformance(Performance performance);
+
+    int deleteById(Long id);
 }

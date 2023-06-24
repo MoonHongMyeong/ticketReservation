@@ -114,4 +114,8 @@
                            AND end_date = #{endDate}
                      )
     </select>
+
+    <delete id="deleteById">
+        DELETE FROM PERFORMANCE WHERE id = #{id}
+    </delete>
 </mapper>
